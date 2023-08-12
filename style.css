@@ -34,6 +34,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .game-envelope{
     display: grid;
@@ -42,6 +43,7 @@ main{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 1em;
+    
 }
 .game-envelope > div{
     display: flex;
@@ -61,60 +63,62 @@ div > img{
     height: 70%;
     transform: perspective(200px) rotateX(0deg) rotateY(180deg);
     opacity: 0;
+    visibility: hidden;
+    
+}
+.navGame > div{
+    width: 80%;
+    height: 10%;
+    font-size: 2.5em;
+    
 }
 
 div.tempo{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-   padding: .5em .5em;
-    font-size: 2em;
     background-color: #8BBBD9;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #ffffff;
     font-weight: bold;
+    border-bottom: 5px solid #ffffff5e;
 }
 div.pontos{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
-    padding: .5em .5em;
-    font-size: 2em;
     background-color: #8bd9b1;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #ffffff;
     font-weight: bold;
+    border-bottom: 5px solid #ffffff5e;
 }
 div.erros{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
-    padding: .5em .5em;
-    font-size: 2em;
     background-color: #ee8787;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #ffffff;
     font-weight: bold;
+    border-bottom: 5px solid #ffffff5e;
 }
 .btn{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    
 }
 button.play{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: .5em .5em;
-    font-size: 2em;
+    height: 100%;
+    font-size: 1em;
     background-color: #ce59d4;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -122,6 +126,7 @@ button.play{
     font-weight: bold;
     border: none;
     cursor: pointer;
+    border-bottom: 5px solid #ffffff5e;
 }
 @keyframes virar{
     100%{
@@ -141,11 +146,13 @@ button.play{
     100%{
         /* transform: perspective(200px) rotateX(0deg) rotateY(180deg); */
         opacity: 1;
+        visibility: visible;
     }
 }
 @keyframes imgDesaparece{
     100%{
         opacity: 0;
+        visibility: hidden;
     }
 }
 @media  screen and (max-width: 900px) {
@@ -156,18 +163,27 @@ button.play{
        width: 100%;
        height: 90%; 
     }
+    #tempo{
+        font-size: 1em;
+    }
     .navGame{
         flex-direction: row;
         width: 100%;
         height: 10%;
-        padding: .5em;
+    
     }
-    .navGame > div, .navGame .btn{
-        width: 20%;
-        padding: .2em;
+
+    .navGame > div{
+        width: 23%;
+        height: 80%;
+        padding: 0em 0em;
     }
+    
     .btn button{
-        font-size: 1.5em;
+        width: 100%;
+        height: 100%;
+        font-size: 1em;
+        padding: .2em .2em;
     }
     
     .game-envelope{
@@ -177,5 +193,14 @@ button.play{
     .game-envelope div{
         width: 80px;
         height: 80px;
+    }
+}
+@media  screen and (max-width: 900px){
+    .navGame{
+        gap:.5em;
+        font-size: .8em;
+    }
+    .navGame div{
+        width: 25%;
     }
 }

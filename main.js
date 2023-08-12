@@ -67,41 +67,55 @@ const AnimationsDesvirar = (e)=>{
 }
 
 const controlClicks = ()=>{
-    const controlClick = [false, false]
-
-    play.addEventListener('click',()=>{
-        minutos = 2
-        statusCronos = true
-    })
-
+    let controlClick = [false, false]
+    let controlDivs = []
+    
+        play.addEventListener('click',()=>{
+            if(statusCronos == false){
+            minutos = 2
+            statusCronos = true
+            }
+        })
+    
+    
     divs.forEach((e)=>{
        
             e.addEventListener('click',()=>{
+               
                 if(statusCronos){ 
-                    if(controlClick[0] == false){
-                        AnimationsVirar(e)
-                        controlClick[0] = true;
-                        controlClick[1] = e;
-                    }else if(controlClick[0] == true && controlClick[1] != e){
-                        AnimationsVirar(e)
-                        controlClick[0] = false;
-                        setTimeout(()=>{
-                            if(controlClick[1].id == e.id){
-                                controlClick[1].style.visibility = 'hidden';
-                                e.style.visibility= 'hidden';
-                                acertosCount++
-                                acertos.innerHTML = acertosCount
-                            }else{
-                                AnimationsDesvirar(e)
-                                AnimationsDesvirar(controlClick[1])
-                                errosCount++
-                                erros.innerHTML = errosCount
-                            }
-                        },1000)
+        
+                        if(controlClick[0] == false){
+                            AnimationsVirar(e)
+                            controlDivs[0] = e
+                            controlClick[0] = true
+                           
+                        }else if(controlClick[0] == true && controlClick[1] == false){
+                            AnimationsVirar(e)
+                            controlDivs[1] = e  
+                            controlClick[1] = true
+                            
+                            setTimeout(()=>{
+                                if(controlDivs[0].id == controlDivs[1].id){
+                                    controlDivs.forEach((e)=>{
+                                        e.style.visibility = 'hidden';
+                                        AnimationsDesvirar(e)
+                                    })
+                                    acertosCount++
+                                    acertos.innerHTML = acertosCount
+                                }else{
+                                    AnimationsDesvirar(controlDivs[1])
+                                    AnimationsDesvirar(controlDivs[0])
+                                    errosCount++
+                                    erros.innerHTML = errosCount
+                                }
+                                controlClick = [false, false]
+                            },1000)
+                            
+    
+                        }
+                    }else{
+                        alert('Aperte play para começar!')
                     }
-                }else{
-                    alert('Aperte play para começar!')
-                }
             })
     })
 }
@@ -109,20 +123,33 @@ const controlTempo = ()=>{
     
         setInterval(()=>{
 
-           if(minutos<=0 && segundos <=0 && statusCronos == true){
-                alert('O tempo acabooooouuu!')
-                statusCronos = false
-                acertos = erros =  0
-           }
+           
 
 
-           if(acertos >= 12){
-                alert('Você ganhou!')
-                statusCronos = false
-                acertos = erros =  0
-           }
+          
            
             if(statusCronos == true){
+                if(minutos<=0 && segundos <=0){
+                    alert('O tempo acabooooouuu!')
+                    statusCronos = false
+                    acertosCount  =  errosCount =  0
+                    minutos = 2
+                    segundos = 1
+               }
+                if(acertosCount >= 12){
+                    alert('Você ganhou!')
+                    statusCronos = false
+                    acertosCount  =  errosCount =  0
+                    minutos = 2
+                    segundos = 1
+               }
+               if(errosCount >=25){
+                    alert('25 erros é demais da conta!')
+                    statusCronos = false
+                    acertosCount  =  errosCount =  0
+                    minutos = 2
+                    segundos = 1
+               }
                 if (minutos >=0){
                     if (segundos == 0){
                         segundos = 60
