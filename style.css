@@ -165,9 +165,10 @@ button.play{
     .navGame > div, .navGame .btn{
         width: 20%;
         padding: .2em;
+        font-size: 1.2em;
     }
     .btn button{
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
     
     .game-envelope{
