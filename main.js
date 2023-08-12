@@ -23,6 +23,16 @@ const colors = {
     sass: '#c69',
 }
 const NumberidsSorteados = [];
+const min = document.querySelector('.minutos');
+const seg = document.querySelector('.segundos');
+const acertos = document.querySelector('#acertos')
+const erros = document.querySelector('#erros')
+const play = document.querySelector(".play")
+let statusCronos = false;
+let segundos = 0;
+let minutos = 0;
+let acertosCount = 0;
+let errosCount = 0;
 let NumeroSorteado;
 
 const sortearIds = ()=>{
@@ -59,30 +69,90 @@ const AnimationsDesvirar = (e)=>{
 const controlClicks = ()=>{
     const controlClick = [false, false]
 
+    play.addEventListener('click',()=>{
+        minutos = 2
+        statusCronos = true
+    })
+
     divs.forEach((e)=>{
-        e.addEventListener('click',()=>{
-            if(controlClick[0] == false){
-                AnimationsVirar(e)
-                controlClick[0] = true;
-                controlClick[1] = e;
-            }else if(controlClick[0] == true && controlClick[1] != e){
-                AnimationsVirar(e)
-                controlClick[0] = false;
-                setTimeout(()=>{
-                    if(controlClick[1].id == e.id){
-                        controlClick[1].style.visibility = 'hidden';
-                        e.style.visibility= 'hidden';
-                    }else{
-                        AnimationsDesvirar(e)
-                        AnimationsDesvirar(controlClick[1])
+       
+            e.addEventListener('click',()=>{
+                if(statusCronos){ 
+                    if(controlClick[0] == false){
+                        AnimationsVirar(e)
+                        controlClick[0] = true;
+                        controlClick[1] = e;
+                    }else if(controlClick[0] == true && controlClick[1] != e){
+                        AnimationsVirar(e)
+                        controlClick[0] = false;
+                        setTimeout(()=>{
+                            if(controlClick[1].id == e.id){
+                                controlClick[1].style.visibility = 'hidden';
+                                e.style.visibility= 'hidden';
+                                acertosCount++
+                                acertos.innerHTML = acertosCount
+                            }else{
+                                AnimationsDesvirar(e)
+                                AnimationsDesvirar(controlClick[1])
+                                errosCount++
+                                erros.innerHTML = errosCount
+                            }
+                        },1000)
                     }
-                },1000)
-            }
-        })
+                }else{
+                    alert('Aperte play para começar!')
+                }
+            })
     })
 }
-controlClicks()
+const controlTempo = ()=>{
+    
+        setInterval(()=>{
 
+           if(minutos<=0 && segundos <=0 && statusCronos == true){
+                alert('O tempo acabooooouuu!')
+                statusCronos = false
+                acertos = erros =  0
+           }
+
+
+           if(acertos >= 12){
+                alert('Você ganhou!')
+                statusCronos = false
+                acertos = erros =  0
+           }
+           
+            if(statusCronos == true){
+                if (minutos >=0){
+                    if (segundos == 0){
+                        segundos = 60
+                        minutos --
+                    }
+                    segundos --
+                    if (segundos < 10){
+                        seg.innerHTML = `0${segundos}`
+                    }else{
+                        seg.innerHTML = segundos
+                    }
+                    if (minutos < 10){
+                        min.innerHTML = `0${minutos}`
+                    }else{
+                        min.innerHTML = minutos
+                    }
+                }
+            }else{
+                segundos = segundos
+                minutos = minutos
+                
+            }
+            
+            
+        },1000)
+    
+}
+
+controlClicks()
+controlTempo()
 sortearIds();
 
 atribuirImagens()
