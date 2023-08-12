@@ -167,6 +167,9 @@ button.play{
         padding: .2em;
         font-size: 1.2em;
     }
+    .tempo{
+      width: 25%;
+    }
     .btn button{
         font-size: 1.2em;
     }
