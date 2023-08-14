@@ -17,6 +17,61 @@ main{
     width: 100%;
     height: 100%;
 }
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    margin-left: -100vw;
+    background-color: #0000006f;
+}
+.result-content{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #ffffff;
+    padding: 1em;
+}
+h1{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    color:#d9d38b;
+}
+.restart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 20%;
+    font-size: 1.2em;
+    padding: 1em;
+    background-color: #ce59d4;
+    align-self: center;
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-bottom: 5px solid #ffffff5e  ;
+}
+.result-envelope{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25%;
+    height: 50%;
+    background-color: #383737;
+    border-radius: 10px;
+    box-shadow: 0px 0px 1px 1px #ffffff5e; 
+}
 .navGame{
     display: flex;
     justify-content: space-evenly;
@@ -55,7 +110,7 @@ main{
     border-radius: 10px;
     border-bottom: 5px solid #ffffff5e;
     box-shadow: 0px 0px 1px 1px #ffffff5e ; 
-
+    visibility: hidden;
 }
 
 div > img{
@@ -155,9 +210,28 @@ button.play{
         visibility: hidden;
     }
 }
+@keyframes viewDiv{
+    0%{
+        transform: rotateY(180deg);
+        background-color: #383737;
+    }
+    100%{
+        transform: rotateY(0deg);
+        background-color: #383737;
+        
+    }
+}
 @media  screen and (max-width: 900px) {
     main{
         flex-direction: column;
+    }
+    .result{
+        margin-left: 0;
+        margin-top: -100vh;
+    }
+    
+    .result-envelope{
+        width: 40%;
     }
     .game{
        width: 100%;
@@ -194,12 +268,15 @@ button.play{
         height: 80px;
     }
 }
-@media  screen and (max-width: 900px){
+@media  screen and (max-width: 600px){
     .navGame{
         gap:.5em;
         font-size: .8em;
     }
     .navGame div{
         width: 25%;
+    }
+    .result-envelope{
+        width: 65%;
     }
 }
