@@ -205,9 +205,14 @@ const controlClicks = ()=>{
                                         errosCount++
                                         erros.innerHTML = errosCount
                                     }
+                                    controlClick = [false, false]
+                                }
+                                else{
+                                    controlClick = [true,false]
+                                    controlDivs[1] =''
                                 }
                                 
-                                controlClick = [false, false]
+                                
                             },1000)
                             
     
