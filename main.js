@@ -34,7 +34,7 @@ let statusCronos = restart = false;
 let segundos = 0;
 let minutos = 0;
 let segDjogo = 0
-let minDjogo = 0
+let minDjogo = -1
 let acertosCount = 0;
 let errosCount = 0;
 let NumeroSorteado;
@@ -240,6 +240,8 @@ const Restart = ()=>{
     acertos.innerHTML = acertosCount
     minutos = 2
     segundos = 0
+    minDjogo = -1
+    segDjogo = -1
     viewDivs()
     sortearIds();
     atribuirImagens()
