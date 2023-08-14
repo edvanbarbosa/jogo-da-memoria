@@ -190,20 +190,23 @@ const controlClicks = ()=>{
                             controlClick[1] = true
                             
                             setTimeout(()=>{
-                                if(controlDivs[0].id == controlDivs[1].id){
-                                    controlDivs.forEach((e)=>{
-                                        e.style.visibility = 'hidden';
-                                        AnimationsDesvirar(e)
-                                        e.id = ''
-                                    })
-                                    acertosCount++
-                                    acertos.innerHTML = acertosCount
-                                }else{
-                                    AnimationsDesvirar(controlDivs[1])
-                                    AnimationsDesvirar(controlDivs[0])
-                                    errosCount++
-                                    erros.innerHTML = errosCount
+                                if(controlDivs[0]!=controlDivs[1]){
+                                    if(controlDivs[0].id == controlDivs[1].id ){
+                                        controlDivs.forEach((e)=>{
+                                            e.style.visibility = 'hidden';
+                                            AnimationsDesvirar(e)
+                                            e.id = ''
+                                        })
+                                        acertosCount++
+                                        acertos.innerHTML = acertosCount
+                                    }else{
+                                        AnimationsDesvirar(controlDivs[1])
+                                        AnimationsDesvirar(controlDivs[0])
+                                        errosCount++
+                                        erros.innerHTML = errosCount
+                                    }
                                 }
+                                
                                 controlClick = [false, false]
                             },1000)
                             
