@@ -1,5 +1,5 @@
-const divs = document.querySelectorAll('.game-envelope  div');
-const ids = ['html','git','css',
+const divs: NodeListOf<HTMLDivElement> = document.querySelectorAll('.game-envelope  div') as NodeListOf<HTMLDivElement>;
+const ids: string[] = ['html','git','css',
             'js','react','python',
             'nodejs','c-sharp','ts',
             'kotlin','java','sass',
@@ -7,8 +7,8 @@ const ids = ['html','git','css',
             'js','react','python',
             'nodejs','c-sharp','ts',
             'kotlin','java','sass'
-        ];
-const colors = {
+        ] as string[];
+const colors: object = {
     html: '#ffa88e',
     git: '#F2F2F2',
     css: '#8BBBD9',
@@ -22,26 +22,27 @@ const colors = {
     java: '#ec8950',
     sass: '#c69',
 }
-let NumberidsSorteados = [];
-const min = document.querySelector('.minutos');
-const seg = document.querySelector('.segundos');
-const acertos = document.querySelector('#acertos')
-const erros = document.querySelector('#erros')
-const play = document.querySelectorAll("button")
-const divResult = document.querySelector('.result')
-const fecharDiv = document.querySelector('#fechar')
-let statusCronos = restart = false;
-let segundos = 0;
-let minutos = 0;
-let segDjogo = 0
-let minDjogo = -1
-let acertosCount = 0;
-let errosCount = 0;
-let NumeroSorteado;
+let NumberidsSorteados: number[] = [];
+const min: HTMLElement = document.querySelector('.minutos') as HTMLElement;
+const seg: HTMLElement = document.querySelector('.segundos') as HTMLElement;
+const acertos: HTMLElement = document.querySelector('#acertos') as HTMLElement;
+const erros: HTMLElement = document.querySelector('#erros') as HTMLElement;
+const play: NodeListOf<HTMLButtonElement> = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>;
+const divResult: HTMLElement = document.querySelector('.result') as HTMLElement;
+const fecharDiv: HTMLElement = document.querySelector('#fechar') as HTMLElement;
+
+let [statusCronos, restart]: boolean[] = [false, false];
+let segundos: number = 0;
+let minutos: number = 0;
+let segDjogo: number = 0
+let minDjogo: number = -1
+let acertosCount: number = 0;
+let errosCount: number = 0;
+let NumeroSorteado: number;
 
 
-const viewDivs = ()=>{
-    divs.forEach(e=>{
+const viewDivs = (): void=>{
+    divs.forEach((e: HTMLElement): void=>{
         if(e.style.visibility != 'visible'){
             e.style.animation = "viewDiv .5s ease-in-out forwards"
             e.style.visibility = 'visible'
@@ -54,7 +55,7 @@ const viewDivs = ()=>{
     })
 }
 
-const result = ()=>{
+const result = (): void=>{
     divResult.style.display = 'flex' 
 
     if(acertosCount >= 12){
@@ -86,41 +87,44 @@ const result = ()=>{
     
 }
 
-const sortearIds = ()=>{
+const sortearIds = (): void=>{
     NumberidsSorteados = []
-    for(i in ids){
+    for(let i in ids){
         NumeroSorteado = Math.floor(Math.random()*(ids.length))
+
         while(NumberidsSorteados.includes(NumeroSorteado)){
             NumeroSorteado = Math.floor(Math.random()*(ids.length))
         }
+
         NumberidsSorteados.push(NumeroSorteado);
     }
-    divs.forEach((e,index)=>{
+
+    divs.forEach((e: HTMLElement,index: number): void=>{
         e.setAttribute('id',ids[NumberidsSorteados[index]])
     })
  
 };
 
-const atribuirImagens = ()=>{
-    divs.forEach(e =>{
+const atribuirImagens = (): void=>{
+    divs.forEach((e: HTMLElement): void =>{
         e.innerHTML = `<img src="img/${e.id}.png" alt="imagem de ${e.id}">`
     })
 }
 
-const AnimationsVirar = (e)=>{
+const AnimationsVirar = (e: HTMLElement): void=>{
      e.style.animation = 'virar .5s ease-in-out forwards'
      e.style.backgroundColor = colors[e.id]
      e.querySelector('img').style.animation = 'imgAparece 1s ease-in-out forwards'
      
 }
-const AnimationsDesvirar = (e)=>{
+const AnimationsDesvirar = (e: HTMLElement): void=>{
     e.style.animation = 'desvirar .5s ease-in-out forwards'
     e.querySelector('img').style.animation = 'imgDesaparece 1s ease-in-out forwards'
 }
 
 
-const controlTempo = ()=>{
-        setInterval(()=>{
+const controlTempo = (): void=>{
+        setInterval((): void=>{
             if(statusCronos == true){
                 if(minutos<=0 && segundos <=0){
                     statusCronos = false
@@ -149,12 +153,12 @@ const controlTempo = ()=>{
                     if (segundos < 10){
                         seg.innerHTML = `0${segundos}`
                     }else{
-                        seg.innerHTML = segundos
+                        seg.innerHTML = segundos.toString()
                     }
                     if (minutos < 10){
                         min.innerHTML = `0${minutos}`
                     }else{
-                        min.innerHTML = minutos
+                        min.innerHTML = minutos.toString()
                     }
                 }else{
                     segundos = 0
@@ -171,12 +175,12 @@ const controlTempo = ()=>{
     
 }
 
-const controlClicks = ()=>{
-    let controlClick = [false, false]
-    let controlDivs = []
-    divs.forEach((e)=>{
+const controlClicks = (): void=>{
+    let controlClick: boolean[] = [false, false]
+    let controlDivs: any = []
+    divs.forEach((e: HTMLDivElement)=>{
        
-            e.addEventListener('click',()=>{
+            e.addEventListener('click',(): any=>{
                
                 if(statusCronos){ 
                         if(controlClick[0] == false){
@@ -189,21 +193,21 @@ const controlClicks = ()=>{
                             controlDivs[1] = e  
                             controlClick[1] = true
                             
-                            setTimeout(()=>{
+                            setTimeout((): void=>{
                                 if(controlDivs[0]!=controlDivs[1]){
                                     if(controlDivs[0].id == controlDivs[1].id ){
-                                        controlDivs.forEach((e)=>{
+                                        controlDivs.forEach((e: HTMLDivElement): void=>{
                                             e.style.visibility = 'hidden';
                                             AnimationsDesvirar(e)
                                             e.id = ''
                                         })
                                         acertosCount++
-                                        acertos.innerHTML = acertosCount
+                                        acertos.innerHTML = acertosCount.toString()
                                     }else{
                                         AnimationsDesvirar(controlDivs[1])
                                         AnimationsDesvirar(controlDivs[0])
                                         errosCount++
-                                        erros.innerHTML = errosCount
+                                        erros.innerHTML = errosCount.toString()
                                     }
                                     controlClick = [false, false]
                                 }
@@ -223,7 +227,7 @@ const controlClicks = ()=>{
             })
     })
 }
-const playGame = ()=>{
+const playGame = (): void=>{
     statusCronos= restart = true
     acertosCount  =  errosCount =  0
     
@@ -242,10 +246,10 @@ const playGame = ()=>{
    
 }
 
-const Restart = ()=>{
+const Restart = (): void=>{
     acertosCount  =  errosCount =  0
-    erros.innerHTML = errosCount
-    acertos.innerHTML = acertosCount
+    erros.innerHTML = errosCount.toString()
+    acertos.innerHTML = acertosCount.toString()
     minutos = 2
     segundos = 0
     minDjogo = -1
@@ -258,8 +262,8 @@ const Restart = ()=>{
 
 }
 
-play.forEach(e=>{
-    e.addEventListener('click',()=>{
+play.forEach((e: HTMLButtonElement): void=>{
+    e.addEventListener('click',(): void=>{
         if(!statusCronos){
            restart == false? playGame():Restart()
         }
